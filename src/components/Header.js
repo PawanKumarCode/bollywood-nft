@@ -124,6 +124,16 @@ const Header = (props) => {
         try {
             const { ethereum } = window;
             if (ethereum) {
+
+                //check if we are on correct network polygon mumbai network
+                const chainId = await ethereum.request({ method: 'eth_chainId' });
+                console.log("Connected to  chain " + chainId);
+
+                if (chainId !== MUMBAI_CHAINID) {
+                    alert("you are not connected to the Mumbai Test Network!");
+                    return;
+                }
+
                 //start loader sppiner animation
                 setLoading(true);
                 const provider = new ethers.providers.Web3Provider(ethereum);
